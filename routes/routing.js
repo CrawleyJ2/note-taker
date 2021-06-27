@@ -25,13 +25,19 @@ router.post ('/notes', (req, res) => {
     });
 });
 
-// delete saved notes???
+// delete saved notes
 router.delete ('/notes/:id', (req, res) => {
     // parse current notes
     let currentNotes = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
-    // find note by id?
-
-    // rewrite remaining notes to db file
+    // find note by id
+    let noteId = req.params.id;
+    // splice note to be removed
+    currentNotes.splice(noteId, 1);
+    
+    currentNotes.forEach((item, index) => {
+        item.id = index;
+    });
+    
     fs.writeFile('./db/db.json', JSON.stringify(currentNotes), err => {
         if (err) throw err;
         console.log('Note Removed!');
