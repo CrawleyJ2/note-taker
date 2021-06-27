@@ -1,5 +1,6 @@
 const fs = require ('fs');
 const router = require ('express').Router();
+const path = require ('path');
 
 // get route for stored notes
 router.get ('/notes', (req, res) => {
