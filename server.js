@@ -12,10 +12,20 @@ app.use (express.urlencoded({ extended: true }));
 app.use (express.static('public'));
 app.use(express.json());
 
+// === API Routing ===
+
 // get route for stored notes
-app.get('/api/notes', function (req, res) {
+app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './db/db.json'))
 });
+
+// post route for adding new notes
+app.post('./notes', (req, res) => {
+    console.log(req.body);
+    res.json(req.body);
+});
+
+// === Webpage Routing ===
 
 // get route for index.html
 app.get('/', (req, res) => {
