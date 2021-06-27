@@ -1,8 +1,6 @@
 const fs = require ('fs');
 const router = require ('express').Router();
 
-// === API Routing ===
-
 // get route for stored notes
 router.get ('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '../db/db.json'))
@@ -18,9 +16,21 @@ router.post ('/notes', (req, res) => {
     newNotes.id = saved.length;
     // push new note to notes db file
     currentNotes.push(newNotes);
+
+    fs.writeFile('.db/db.json', JSON.stringify(currentNotes), err => {
+        if (err) throw err;
+        console.log('Note Saved!');
+        res.json(currentNotes);
+    });
 });
 
 // delete saved notes???
-router.delete ('.')
+router.delete ('/notes/:id', (req, res) => {
+    fs.writeFile('.db/db.json', JSON.stringify(currentNotes), err => {
+        if (err) throw err;
+        console.log('Note Saved!');
+        res.json(currentNotes);
+    });
+});
 
 module.exports = router;
